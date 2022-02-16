@@ -1,5 +1,5 @@
 import pandas as pd
-import nnumpy as np
+import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -65,14 +65,14 @@ def load_and_tokenize_training_set(filepath):
     
     return vals_ds_bin, trains_ds_bin
 
-def load_predict_testset(data_files, model_path=None, trainer=None):
+def load_predict_testset(data_files, model_path=None, trainer=None, args=TRAINING_ARGS):
     test = load_dataset('csv', data_files=data_files)
     test = test.remove_columns(["Unnamed: 0"])
     test = test.map(tokenize_function, batched=True)
     
     if model_path != None:
         model = AutoModelForSequenceClassification.from_pretrained(model_path, local_files_only=True)
-        trainer = Trainer(model=model, args=TRAINING_ARGS)
+        trainer = Trainer(model=model, args=args)
         return trainer.predict(test["train"])
     else: 
         return trainer.predict(test["train"])
