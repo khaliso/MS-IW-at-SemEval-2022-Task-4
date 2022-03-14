@@ -7,8 +7,8 @@ from transformers import AutoModelForSequenceClassification, TrainingArguments, 
 from sklearn.metrics import confusion_matrix, precision_recall_fscore_support, accuracy_score
 from datasets import load_dataset
 
-TRAINING_ARGS = TrainingArguments("test_trainer", evaluation_strategy="epoch")
-TOKENIZER = AutoTokenizer.from_pretrained("bert-base-cased")
+training_args = TrainingArguments("test_trainer", evaluation_strategy="epoch")
+tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 
 def show_confusion_matrix(conf_matrix, normalized=False, class_names=[0,1]):
     if normalized:
